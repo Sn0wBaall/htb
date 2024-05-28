@@ -57,7 +57,7 @@ function updateFiles(){
       mv bundle_temp.js bundle.js
       echo -e "\n${greenColour}[+]${endColour}${grayColour} Listo, archivos actualizados${endColour}"
     else
-      fcho -e "\n${greenColour}[+]${endColour}${grayColour}No se han encontrado actualizaciones, tienes todo al dia ;)${endColour}"
+      echo -e "\n${greenColour}[+]${endColour}${grayColour}No se han encontrado actualizaciones, tienes todo al dia ;)${endColour}"
       rm bundle_temp.js
     fi
     tput cnorm
@@ -67,20 +67,9 @@ function updateFiles(){
 function searchMachine(){
   machineName="$1"
 
-  machinenameChecker="$( cat bundle.js | awk "/name: \"$machineName\"/,/resuelta/" | grep -vE "id|sku|resuelta" | tr -d '"' | tr -d ',' | sed 's/^ *//')"
-
-  if [ $machinenameChecker ]; then
-  
-
   echo -e "\n${yellowColour}[+]${endColour}${grayColour} Listando las propiedades de la maquina${endColour}${blueColour} $machineName${endColour}${grayColour}:${endColour}\n"
 
   cat bundle.js | awk "/name: \"$machineName\"/,/resuelta:/" | grep -vE "id:|sku:|resuelta" | tr -d '"' | tr -d ',' | sed "s/^ *//" | sed "s/: / -> /" 
-  
-  else 
-
-    echo -e "\n${redColour}[!] La maquina indicada no existe${endColour}\n"
-
-  fi 
 }
 
 function searchIp(){
